@@ -1,137 +1,1169 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
-@media print {
-	body {
-		margin: 0 !important;
-	}
-}
-
+/* 同 CK4 baseFloatZIndex：編輯器在 Bootstrap modal 裡時，下拉選單、連結框不會被蓋住 */
 :root {
-	--ck-content-font-family: 'Lato';
+	--ck-z-panel: 100001;
 }
 
-.main-container {
-	font-family: var(--ck-content-font-family);
-	width: fit-content;
-	margin-left: auto;
-	margin-right: auto;
+.ck-editor__editable_inline {
+	min-height: var(--ck5-height, 300px);
 }
 
-.editor-container_classic-editor .editor-container__editor {
-	min-width: 100%;
-	max-width: 100;
-}
-
-.ck-content h3.category {
-	font-family: 'Oswald';
-	font-size: 20px;
-	font-weight: bold;
-	color: #555;
-	letter-spacing: 10px;
-	margin: 0;
-	padding: 0;
-}
-
-.ck-content h2.document-title {
-	font-family: 'Oswald';
-	font-size: 50px;
-	font-weight: bold;
-	margin: 0;
-	padding: 0;
-	border: 0;
-}
-
-.ck-content h3.document-subtitle {
-	font-family: 'Oswald';
-	font-size: 20px;
-	color: #555;
-	margin: 0 0 1em;
-	font-weight: bold;
-	padding: 0;
-}
-
-.ck-content p.info-box {
-	--background-size: 30px;
-	--background-color: #e91e63;
-	padding: 1.2em 2em;
-	border: 1px solid var(--background-color);
-	background:
-		linear-gradient(135deg, var(--background-color) 0%, var(--background-color) var(--background-size), transparent var(--background-size)),
-		linear-gradient(135deg,
-			transparent calc(100% - var(--background-size)),
-			var(--background-color) calc(100% - var(--background-size)),
-			var(--background-color));
-	border-radius: 10px;
-	margin: 1.5em 2em;
-	box-shadow: 5px 5px 0 #ffe6ef;
-}
-
-.ck-content span.marker {
-	background: yellow;
-}
-
-.ck-content span.spoiler {
-	background: #000;
-	color: #000;
-}
-
-.ck-content span.spoiler:hover {
-	background: #000;
-	color: #fff;
-}
-
-.ck-content .button {
-	display: inline-block;
-	width: 260px;
-	border-radius: 8px;
-	margin: 0 auto;
-	padding: 12px;
-	color: #ffffff;
-	font-size: 24px;
-	font-weight: 700;
-	text-align: center;
-	text-decoration: none;
-}
-
-.ck-content .button--green {
-	background-color: #406b1e;
-}
-
-.ck-content .button--black {
-	background-color: #141517;
-}
-
-.editor_container__word-count .ck-word-count {
-	color: var(--ck-color-text);
-	display: flex;
-	height: 20px;
-	gap: var(--ck-spacing-small);
-	justify-content: flex-end;
-	font-size: var(--ck-font-size-base);
-	line-height: var(--ck-line-height-base);
-	font-family: var(--ck-font-face);
-	padding: var(--ck-spacing-small) var(--ck-spacing-standard);
-}
-
-.editor-container_include-word-count.editor-container_classic-editor .editor_container__word-count {
+/* 原始碼模式 CodeMirror（sourceeditingcodemirror.js），取自該套件 theme/sourceeditingcodemirror.css */
+.ck-source-editing-area .cm-s-default {
 	border: 1px solid var(--ck-color-base-border);
 	border-radius: var(--ck-border-radius);
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
+	font-size: var(--ck-font-size-normal);
+	line-height: var(--ck-line-height-base);
+}
+.ck-source-editing-area .CodeMirror-focused {
+	border: var(--ck-focus-ring);
+	box-shadow: var(--ck-inner-shadow), 0 0;
+	outline: none;
+}
+.ck-source-editing-area::after {
+	content: "";
+	display: none;
+}
+/* 程式碼區塊語法上色（main.js CodeBlockHighlight），配色同 CodeMirror 預設主題 */
+::highlight(cm-keyword) { color: #708; }
+::highlight(cm-atom) { color: #219; }
+::highlight(cm-number) { color: #164; }
+::highlight(cm-def) { color: #00f; }
+::highlight(cm-variable-2) { color: #05a; }
+::highlight(cm-variable-3), ::highlight(cm-type) { color: #085; }
+::highlight(cm-comment) { color: #a50; }
+::highlight(cm-string) { color: #a11; }
+::highlight(cm-string-2) { color: #f50; }
+::highlight(cm-meta), ::highlight(cm-qualifier) { color: #555; }
+::highlight(cm-builtin) { color: #30a; }
+::highlight(cm-bracket) { color: #997; }
+::highlight(cm-tag) { color: #170; }
+::highlight(cm-attribute) { color: #00c; }
+::highlight(cm-property) { color: #219; }
+::highlight(cm-operator) { color: #a67f59; }
+
+/* 高度隨內容長，至少與編輯區同高 */
+.ck-source-editing-area .CodeMirror {
+	height: auto;
+	min-height: var(--ck5-height, 300px);
+}
+
+/* 仿 CK4 moono：灰色漸層工具列、分隔線明顯，舊使用者較熟悉 */
+.ck.ck-editor__top .ck-toolbar {
+	background: linear-gradient(#f9f9f9, #e3e3e3);
+	border-color: #b6b6b6;
+}
+.ck.ck-editor__top .ck-toolbar .ck-toolbar__separator {
+	background: #b6b6b6;
+}
+.ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+	border-color: #b6b6b6;
+}
+
+/* 字型、大小下拉顯示文字，固定寬度避免切換時工具列跳動 */
+.ck5-text-dropdown .ck-button__label {
+	width: 6em;
+}
+/* 字型清單很長，限制高度可捲動 */
+.ck.ck-font-family-dropdown .ck-dropdown__panel .ck-list {
+	max-height: 60vh;
+	overflow-y: auto;
+}
+
+/* 選檔器（仿 elFinder）：灰色工具列、左側樹、下方狀態列 */
+.ck5-fm {
+	width: min(1000px, 96vw);
+	height: min(640px, 90vh);
+	max-height: none;
+	overflow: hidden;
+}
+.ck5-fm[open] {
+	display: flex;
+	flex-direction: column;
+}
+.ck5-fm .ck5-browser-header {
+	position: static;
+	background: linear-gradient(#f9f9f9, #e3e3e3);
+}
+.ck5-fm-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 4px;
+	padding: 4px 6px;
+	border-bottom: 1px solid #c4c4c4;
+	background: linear-gradient(#f4f4f4, #e2e2e2);
+}
+.ck5-fm-group {
+	display: flex;
+	border: 1px solid #c4c4c4;
+	border-radius: 3px;
+	background: #fafafa;
+}
+.ck5-fm-group button {
+	width: 28px;
+	height: 26px;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: #3a6ea5;
+	cursor: pointer;
+}
+.ck5-fm-group button + button {
+	border-left: 1px solid #e0e0e0;
+}
+.ck5-fm-group button:hover:not(:disabled) {
+	background: #dde9f6;
+}
+.ck5-fm-group button:disabled {
+	color: #bbb;
+	cursor: default;
+}
+.ck5-fm-group button[aria-pressed="true"] {
+	background: #cfe0f3;
+}
+.ck5-fm-search {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	margin-left: auto;
+	padding: 0 6px;
+	border: 1px solid #c4c4c4;
+	border-radius: 12px;
+	background: #fff;
+	color: #888;
+}
+.ck5-fm-search input {
+	width: 9rem;
+	border: 0;
+	outline: 0;
+	padding: 3px 0;
+}
+.ck5-fm-body {
+	display: grid;
+	grid-template-columns: 220px 1fr;
+	flex: 1 1 auto;
+	min-height: 0;
+}
+.ck5-fm-tree {
+	overflow: auto;
+	padding: 6px 0;
+	border-right: 1px solid #c4c4c4;
+	background: #dde4ec;
+}
+.ck5-fm-tree ul {
+	list-style: none;
+	margin: 0;
+	padding-left: 14px;
+}
+.ck5-fm-tree > ul {
+	padding-left: 4px;
+}
+.ck5-fm-tree button {
+	display: block;
+	width: 100%;
+	padding: 3px 8px;
+	border: 0;
+	border-radius: 3px;
+	background: none;
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+.ck5-fm-tree button:hover {
+	background: #c9d6e4;
+}
+.ck5-fm-tree button.is-current {
+	background: #3d7bd9;
+	color: #fff;
+}
+.ck5-fm-tree .fa-folder {
+	color: #e8b443;
+}
+.ck5-fm-tree button.is-current i {
+	color: #fff;
+}
+.ck5-fm-main {
+	overflow: auto;
+	background: #fff;
+}
+.ck5-fm-icons {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+	gap: 6px;
+	padding: 10px;
+}
+.ck5-fm-icons .ck5-fm-item {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	min-width: 0;
+	padding: 6px 4px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	background: none;
+	cursor: pointer;
+}
+.ck5-fm-icons .ck5-fm-item img,
+.ck5-fm-icons .ck5-fm-icon {
+	width: 80px;
+	height: 64px;
+	object-fit: contain;
+}
+.ck5-fm-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 48px;
+	color: #e8b443;
+}
+.ck5-fm-ext {
+	font-size: 1rem;
+	font-weight: bold;
+	color: #fff;
+	background: #6c8cb5;
+	border-radius: 4px;
+}
+.ck5-fm-name {
+	max-width: 100%;
+	font-size: .8rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.ck5-fm-lock {
+	position: absolute;
+	top: 4px;
+	right: 6px;
+	color: #b02a37;
+}
+.ck5-fm-list .ck5-fm-lock {
+	position: static;
+	margin-left: .4rem;
+}
+/* Shift 範圍選取時不要反白文字 */
+.ck5-fm-item {
+	user-select: none;
+}
+.ck5-fm-main:focus {
+	outline: none;
+}
+.ck5-fm-item:hover {
+	background: #eef4fb;
+}
+.ck5-fm-icons .ck5-fm-item.is-selected,
+.ck5-fm-list .ck5-fm-item.is-selected {
+	background: #cfe0f3;
+	border-color: #8fb3df;
+}
+.ck5-fm-list {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: .85rem;
+}
+.ck5-fm-list th {
+	position: sticky;
+	top: 0;
+	padding: 4px 8px;
+	border-bottom: 1px solid #c4c4c4;
+	background: linear-gradient(#f9f9f9, #e3e3e3);
+	text-align: left;
+	font-weight: normal;
+}
+.ck5-fm-list td {
+	padding: 3px 8px;
+	border-bottom: 1px solid #f0f0f0;
+	white-space: nowrap;
+}
+.ck5-fm-list tr.ck5-fm-item {
+	cursor: pointer;
+}
+.ck5-fm-list .fa-folder {
+	color: #e8b443;
+}
+.ck5-fm-empty {
+	padding: 1rem;
+	color: #6c757d;
+}
+.ck5-fm-statusbar {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 3px 8px;
+	border-top: 1px solid #c4c4c4;
+	background: linear-gradient(#f4f4f4, #e2e2e2);
+	font-size: .8rem;
+}
+.ck5-fm-message {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.ck5-fm-summary {
+	white-space: nowrap;
+}
+.ck5-fm-info th {
+	padding: 2px 1rem 2px 0;
+	text-align: left;
+	vertical-align: top;
+	white-space: nowrap;
+}
+.ck5-fm-info td {
+	word-break: break-all;
+}
+/* 手機：樹狀目錄縮到上方 */
+@media (max-width: 640px) {
+	.ck5-fm-body {
+		grid-template-columns: 1fr;
+		grid-template-rows: auto 1fr;
+	}
+	.ck5-fm-tree {
+		max-height: 30vh;
+		border-right: 0;
+		border-bottom: 1px solid #c4c4c4;
+	}
+	.ck5-fm-search {
+		margin-left: 0;
+	}
+}
+
+/* ==========================================================================
+   影像屬性與連結對話框（最新 Tailwind 專業 UI 風格）
+   ========================================================================== */
+
+/* 棋盤格紋透明底預覽圖樣 */
+.bg-checker {
+	background-color: #f8fafc;
+	background-image: 
+		linear-gradient(45deg, #f1f5f9 25%, transparent 25%),
+		linear-gradient(-45deg, #f1f5f9 25%, transparent 25%),
+		linear-gradient(45deg, transparent 75%, #f1f5f9 75%),
+		linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
+	background-size: 16px 16px;
+	background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+/* 對話框外框：max-w-4xl (896px)、立體陰影、rounded-2xl (16px) 圓角 */
+.ck5-browser.ck5-image-dialog {
+	width: min(896px, 95vw);
+	max-height: 90vh;
+	border: 1px solid rgba(226, 232, 240, 0.9);
+	border-radius: 1rem;
+	box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+	color: #334155;
+	background: #ffffff;
+	overflow: hidden;
+}
+
+/* 玻璃擬態遮罩 */
+.ck5-image-dialog::backdrop {
+	background: rgba(15, 23, 42, 0.5);
+	backdrop-filter: blur(4px);
+}
+
+/* 面板切換隱藏 */
+.ck5-image-dialog [hidden] {
+	display: none !important;
+}
+
+/* 頂部標題列與分頁列 */
+.ck5-image-dialog .ck5-browser-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.875rem 1.5rem 0;
+	border-bottom: 1px solid #e2e8f0;
+	background: rgba(248, 250, 252, 0.95);
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
+.ck5-image-dialog .ck5-browser-header > strong {
+	padding: 0.625rem 1rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: #64748b;
+	border-bottom: 2px solid transparent;
+	margin-right: 0.25rem;
+	white-space: nowrap;
+	cursor: default;
+}
+
+/* 分頁切換鈕群 */
+.ck5-image-dialog .ck5-browser-tabs {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	margin: 0 auto 0 0;
+}
+
+.ck5-image-dialog .ck5-browser-header .ck5-browser-tabs button {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.625rem 1rem;
+	border: 0;
+	border-bottom: 2px solid transparent;
+	border-top-left-radius: 0.5rem;
+	border-top-right-radius: 0.5rem;
+	background: transparent;
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: #64748b;
+	cursor: pointer;
+	transition: all 0.15s ease;
+}
+
+.ck5-image-dialog .ck5-browser-header .ck5-browser-tabs button:hover {
+	color: #1e293b;
+	background: rgba(241, 245, 249, 0.6);
+}
+
+.ck5-image-dialog .ck5-browser-header .ck5-browser-tabs button[aria-selected="true"] {
+	color: #2563eb;
+	font-weight: 600;
+	border-bottom-color: #2563eb;
+	background: rgba(255, 255, 255, 0.85);
+	box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.02);
+}
+
+/* 關閉按鈕 */
+.ck5-image-dialog .ck5-btn-close {
+	width: 2rem;
+	height: 2rem;
+	padding: 0.375rem;
+	border: 0;
+	border-radius: 0.5rem;
+	background: transparent;
+	color: #94a3b8;
+	cursor: pointer;
+	transition: all 0.15s ease;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: -0.5rem;
+	margin-left: auto;
+}
+
+.ck5-image-dialog .ck5-btn-close:hover {
+	color: #475569;
+	background: rgba(226, 232, 240, 0.7);
+}
+
+/* 主面板內距與排列 */
+.ck5-image-panel {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+	padding: 1.5rem 2rem;
+	max-height: calc(88vh - 120px);
+	overflow-y: auto;
+	box-sizing: border-box;
+}
+
+/* 連結對話框專屬樣式 */
+.ck5-image-panel.ck5-link-panel {
+	gap: 1.25rem;
+	min-height: 0;
+}
+.ck5-link-protocol > .ck5-image-field:first-child {
+	flex: 0 0 8.5rem;
+}
+.ck5-link-check {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.875rem;
+	color: #334155;
+	cursor: pointer;
+	user-select: none;
+}
+.ck5-link-check input[type="checkbox"] {
+	width: 1.1rem;
+	height: 1.1rem;
+	accent-color: #2563eb;
+	cursor: pointer;
+}
+
+/* 欄位整體設定 */
+.ck5-image-field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.375rem;
+	min-width: 0;
+}
+
+.ck5-image-field > span {
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: #334155;
+	letter-spacing: 0.025em;
+}
+
+.ck5-image-label-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.ck5-image-label-row span:first-child {
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: #334155;
+	letter-spacing: 0.025em;
+}
+
+.ck5-required {
+	color: #f43f5e;
+}
+
+.ck5-image-hint {
+	font-size: 0.75rem;
+	font-weight: 400;
+	color: #94a3b8;
+}
+
+/* 輸入框與下拉選單 */
+.ck5-image-dialog input[type="text"],
+.ck5-image-dialog input[type="number"],
+.ck5-image-dialog select {
+	height: 2.5rem;
+	padding: 0.5rem 0.875rem;
+	border: 1px solid #cbd5e1;
+	border-radius: 0.5rem;
+	font-size: 0.875rem;
+	color: #1e293b;
+	background-color: #ffffff;
+	box-sizing: border-box;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ck5-image-dialog input::placeholder {
+	color: #94a3b8;
+}
+
+.ck5-image-dialog input.font-mono {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	font-size: 0.825rem;
+}
+
+.ck5-image-dialog input.text-center {
+	text-align: center;
+}
+
+.ck5-image-dialog input.font-medium {
+	font-weight: 500;
+}
+
+.ck5-image-dialog select {
+	cursor: pointer;
+	padding-right: 2rem;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+	background-position: right 0.65rem center;
+	background-repeat: no-repeat;
+	background-size: 1.25rem 1.25rem;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.ck5-image-dialog input[type="text"]:focus,
+.ck5-image-dialog input[type="number"]:focus,
+.ck5-image-dialog select:focus {
+	border-color: #3b82f6;
+	outline: none;
+	box-shadow: 0 0 0 2px #3b82f6;
+}
+
+/* 列佈局 */
+.ck5-image-row {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.ck5-image-row > .ck5-image-field {
+	flex: 1 1 auto;
+}
+
+/* 「瀏覽並上傳」按鈕 */
+.ck5-btn-browse {
+	height: 2.5rem;
+	padding: 0 1rem;
+	border: 1px solid #cbd5e1;
+	border-radius: 0.5rem;
+	background: #f1f5f9;
+	color: #334155;
+	font-size: 0.875rem;
+	font-weight: 500;
+	cursor: pointer;
+	white-space: nowrap;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	transition: all 0.15s ease;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.ck5-btn-browse:hover {
+	background: #e2e8f0;
+}
+
+.ck5-btn-browse:active {
+	background: #cbd5e1;
+}
+
+.ck5-svg {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+}
+
+/* 鎖定比例 (🔒) 與 重設大小 (↻) 按鈕 */
+.ck5-lock-btn {
+	width: 2.5rem;
+	height: 2.5rem;
+	padding: 0;
+	border: 1px solid #fde68a;
+	border-radius: 0.5rem;
+	background: #fffbeb;
+	color: #d97706;
+	cursor: pointer;
+	transition: all 0.15s ease;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.ck5-lock-btn:hover {
+	background: #fef3c7;
+}
+
+.ck5-lock-btn.is-unlocked {
+	border-color: #cbd5e1;
+	background: #f8fafc;
+	color: #64748b;
+}
+
+.ck5-reset-btn {
+	width: 2.5rem;
+	height: 2.5rem;
+	padding: 0;
+	border: 1px solid #cbd5e1;
+	border-radius: 0.5rem;
+	background: #f1f5f9;
+	color: #475569;
+	cursor: pointer;
+	transition: all 0.15s ease;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.ck5-reset-btn:hover {
+	background: #e2e8f0;
+}
+
+/* 中間區域：12 欄網格（左側 5 欄尺寸控制，右側 7 欄預覽） */
+.ck5-image-columns {
+	display: grid;
+	grid-template-columns: 5fr 7fr;
+	gap: 1.5rem;
+	align-items: stretch;
+	padding-top: 0.25rem;
+}
+
+/* 左側尺寸區塊 */
+.ck5-image-sizes {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.ck5-image-sizes .ck5-image-row input {
+	flex: 1 1 auto;
+	width: 100%;
+}
+
+.ck5-image-subgrid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.75rem;
+	padding-top: 0.25rem;
+}
+
+.ck5-image-subgrid input {
+	width: 100%;
+}
+
+/* 右側預覽外包層 */
+.ck5-image-preview-wrap {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+
+/* 預覽容器：棋盤格紋背景、圓角、內陰影 */
+.ck5-image-preview {
+	position: relative;
+	flex: 1;
+	min-height: 175px;
+	max-height: 195px;
+	width: 100%;
+	border: 1px solid #cbd5e1;
+	border-radius: 0.75rem;
+	padding: 0.75rem;
+	overflow: hidden;
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+}
+
+/* 預覽內部卡片 */
+.ck5-preview-card {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: auto;
+	border-radius: 0.375rem;
+	background: #ffffff;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	border: 1px solid rgba(226, 232, 240, 0.8);
+	padding: 0.5rem;
+	box-sizing: border-box;
+	font-size: 0.825rem;
+	line-height: 1.6;
+	color: #475569;
+}
+
+.ck5-preview-card img {
+	max-width: 100%;
+	max-height: 130px;
+	object-fit: contain;
+	vertical-align: top;
+}
+
+.ck5-preview-card img[style*="%"] {
+	height: auto !important;
+}
+
+.ck5-preview-card .ck5-preview-text {
+	flex: 1;
+}
+
+.ck5-preview-empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	color: #94a3b8;
+	font-size: 0.825rem;
+}
+
+/* 即時預覽角標 */
+.ck5-preview-badge {
+	position: absolute;
+	bottom: 0.625rem;
+	right: 0.625rem;
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	background: rgba(255, 255, 255, 0.95);
+	backdrop-filter: blur(4px);
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.375rem;
+	border: 1px solid #e2e8f0;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	font-size: 11px;
+	color: #475569;
+	user-select: none;
+}
+
+/* 框線、對齊方式、自適應：三欄等寬均勻分佈 */
+.ck5-image-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1rem;
+	padding-top: 0.25rem;
+}
+
+/* 進階屬性分組框（fieldset） */
+.ck5-image-dialog fieldset {
+	border: 1px solid #e2e8f0;
+	border-radius: 0.75rem;
+	padding: 1rem 1rem 1rem;
+	background: rgba(248, 250, 252, 0.5);
+	margin: 0;
+}
+
+.ck5-image-dialog legend {
+	float: none;
+	width: auto;
+	margin: 0;
+	padding: 0.125rem 0.5rem;
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: #334155;
+	background: #ffffff;
+	border-radius: 0.375rem;
+	border: 1px solid #e2e8f0;
+}
+
+/* 底部按鈕列 */
+.ck5-image-footer {
+	background: #f8fafc;
+	border-top: 1px solid #e2e8f0;
+	padding: 1rem 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.75rem;
+}
+
+.ck5-image-footer button {
+	min-width: 84px;
+	height: 2.375rem;
+	padding: 0.5rem 1.25rem;
+	border-radius: 0.5rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	cursor: pointer;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	transition: all 0.15s ease;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 取消按鈕 */
+.ck5-image-footer button[value="cancel"] {
+	background: #ffffff;
+	color: #334155;
+	border: 1px solid #cbd5e1;
+}
+
+.ck5-image-footer button[value="cancel"]:hover {
+	background: #f1f5f9;
+	color: #0f172a;
+}
+
+/* 確定按鈕 */
+.ck5-image-footer button[value="ok"] {
+	background: #2563eb;
+	color: #ffffff;
+	border: 1px solid #2563eb;
+	box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+}
+
+.ck5-image-footer button[value="ok"]:hover {
+	background: #1d4ed8;
+	border-color: #1d4ed8;
+}
+
+.ck5-image-footer button[value="ok"]:active {
+	background: #1e40af;
+}
+
+/* RWD 響應式：手機或窄螢幕時自然堆疊 */
+@media (max-width: 640px) {
+	.ck5-browser.ck5-image-dialog {
+		width: 95vw;
+		max-height: 94vh;
+	}
+	.ck5-image-columns {
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+	.ck5-image-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* FontAwesome 選圖示 */
+.ck5-fa-tools label {
+	display: inline-flex;
+	align-items: center;
+	gap: .25rem;
+	white-space: nowrap;
+}
+.ck5-fa-tools input[type="search"] {
+	flex: 1 1 14rem;
+	padding: .25rem .5rem;
+}
+.ck5-fa-tools input[type="number"] {
+	width: 4.5rem;
+}
+.ck5-fa-grid {
+	grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+	gap: .5rem;
+}
+.ck5-fa-grid button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: .25rem;
+	min-width: 0;
+	padding: .5rem .25rem;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	background: #fff;
+	cursor: pointer;
+}
+.ck5-fa-grid button:hover,
+.ck5-fa-grid button:focus-visible {
+	border-color: #0d6efd;
+	outline: 2px solid #0d6efd;
+}
+.ck5-fa-grid button span:first-child {
+	font-size: 1.5rem;
+}
+.ck5-fa-grid button span:last-child {
+	font-size: .7rem;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ck5-browser {
+	width: min(900px, 95vw);
+	max-height: 85vh;
+	padding: 0;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+}
+.ck5-browser::backdrop {
+	background: rgba(0, 0, 0, .4);
+}
+.ck5-browser-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: .5rem 1rem;
+	border-bottom: 1px solid #ddd;
+	position: sticky;
+	top: 0;
+	background: #fff;
+}
+.ck5-browser-header button {
+	border: 0;
+	background: none;
+	font-size: 1.5rem;
+	line-height: 1;
+	cursor: pointer;
+}
+.ck5-browser.is-dragover {
+	outline: 4px dashed #0d6efd;
+	outline-offset: -8px;
+}
+.ck5-browser-tools {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: .5rem;
+	padding: .5rem 1rem;
+	border-bottom: 1px solid #eee;
+	position: sticky;
+	top: 3rem;
+	background: #fff;
+	z-index: 1;
+}
+.ck5-browser-tools > button {
+	padding: .25rem .75rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background: #f8f9fa;
+	cursor: pointer;
+}
+/* 標題列即分頁：選中的分頁底線標示 */
+.ck5-browser-tabs {
+	display: flex;
+	gap: .25rem;
+	align-self: stretch;
+	margin-bottom: calc(-.5rem - 1px);
+}
+.ck5-browser-header .ck5-browser-tabs button {
+	font-size: 1rem;
+	padding: .5rem 1rem;
+	border-bottom: 3px solid transparent;
+	color: #666;
+}
+.ck5-browser-header .ck5-browser-tabs button:hover {
+	color: #000;
+	background: #f3f6fa;
+}
+.ck5-browser-header .ck5-browser-tabs button[aria-selected="true"] {
+	color: #0d6efd;
+	border-bottom-color: #0d6efd;
+	font-weight: bold;
+}
+.ck5-browser-crumbs {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+.ck5-browser-crumbs button {
+	border: 0;
+	background: none;
+	padding: 0 .2rem;
+	color: #0d6efd;
+	cursor: pointer;
+}
+.ck5-browser-crumbs button:last-child {
+	color: inherit;
+	font-weight: bold;
+}
+.ck5-browser-status {
+	flex-basis: 100%;
+	font-size: .85rem;
+	color: #b02a37;
+}
+.ck5-browser-status:empty {
+	display: none;
+}
+.ck5-browser-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+	gap: .75rem;
+	padding: 1rem;
+}
+.ck5-browser-item {
+	position: relative;
+	min-width: 0;
+}
+.ck5-browser-item > button:first-child {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: .25rem;
+	width: 100%;
+	padding: .5rem;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	background: #fff;
+	cursor: pointer;
+}
+.ck5-browser-item > button:first-child:hover,
+.ck5-browser-item > button:first-child:focus-visible {
+	border-color: #0d6efd;
+	outline: 2px solid #0d6efd;
+}
+.ck5-browser-actions {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	display: flex;
+	gap: 2px;
+}
+.ck5-browser-actions button {
+	width: 1.7rem;
+	height: 1.7rem;
+	border: 0;
+	border-radius: 50%;
+	background: rgba(33, 37, 41, .75);
+	color: #fff;
+	line-height: 1;
+	cursor: pointer;
+}
+.ck5-browser-actions button:last-child {
+	background: rgba(176, 42, 55, .85);
+}
+.ck5-browser-lock {
+	position: absolute;
+	top: 6px;
+	right: 8px;
+	cursor: help;
+}
+/* 有滑鼠時才隱藏到 hover，觸控裝置一直顯示 */
+@media (hover: hover) {
+	.ck5-browser-actions {
+		opacity: 0;
+	}
+	.ck5-browser-item:hover .ck5-browser-actions,
+	.ck5-browser-actions:focus-within {
+		opacity: 1;
+	}
+}
+.ck5-browser-move {
+	width: min(420px, 90vw);
+	border: 1px solid #ccc;
+	border-radius: 8px;
+}
+.ck5-browser-move select {
+	width: 100%;
+	padding: .25rem;
+}
+.ck5-browser-hint {
+	font-size: .85rem;
+	color: #6c757d;
+}
+.ck5-browser-buttons {
+	display: flex;
+	justify-content: flex-end;
+	gap: .5rem;
+}
+.ck5-browser-buttons button {
+	padding: .25rem 1rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background: #f8f9fa;
+	cursor: pointer;
+}
+.ck5-browser-buttons button[value="ok"],
+.ck5-browser-buttons button[value="replace"] {
+	background: #0d6efd;
+	border-color: #0d6efd;
+	color: #fff;
+}
+.ck5-browser-grid img,
+.ck5-browser-icon {
+	width: 100%;
+	height: 100px;
+	object-fit: contain;
+}
+.ck5-browser-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 2.5rem;
+	font-weight: bold;
+	color: #6c757d;
+}
+.ck5-browser-item span:not(.ck5-browser-icon) {
+	font-size: .8rem;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ck-word-count {
+	display: flex;
+	justify-content: flex-end;
+	gap: var(--ck-spacing-small);
+	padding: var(--ck-spacing-small) var(--ck-spacing-standard);
+	font-size: var(--ck-font-size-base);
+	color: var(--ck-color-text);
+	border: 1px solid var(--ck-color-base-border);
 	border-top: none;
 }
 
-.editor-container_include-word-count.editor-container_classic-editor .editor-container__editor .ck-editor .ck-editor__editable {
-	border-radius: 0;
-}
-
-.editor-container__editor {
-	/* 可以調整這裡的高度值 */
-	min-height: 400px;
-}
-
-.ck-editor__editable {
-	/* 設定編輯區域的最小高度 */
-	min-height: 350px !important;
+/* 陰影標題：編輯區與樣式選單預覽用，存檔時轉回 inline style（main.js TextShadowStyle） */
+.ck5-text-shadow {
+	text-shadow: 1px 1px 1px #aaaaaa;
 }
