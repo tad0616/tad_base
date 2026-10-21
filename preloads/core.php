@@ -12,4 +12,10 @@ class Tad_baseCorePreload extends XoopsPreloadItem
     {
         require __DIR__ . '/autoloader.php';
     }
+
+    // CK5 前台內容樣式全站載入：規則都限定在 .ck-content 內，各模組不必再自行呼叫
+    public static function eventCoreHeaderAddmeta($args)
+    {
+        \XoopsModules\Tad_base\CkEditor5::loadContentCss();
+    }
 }
