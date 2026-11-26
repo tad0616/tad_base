@@ -1,4 +1,7 @@
 <?php
+// 下方選單皆註解時仍需定義，避免 index.php 傳入未定義變數
+$interface_menu = $interface_icon = [];
+
 // //判斷是否對該模組有管理權限
 // $is_admin = basename(__DIR__) . '_adm';
 // if (!isset($_SESSION[$is_admin])) {

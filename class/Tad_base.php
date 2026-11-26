@@ -111,6 +111,7 @@ class Tad_base
             $$var_name = $myts->addSlashes($var_val);
         }
 
+        $id = (int) $id;
         $sql = "update `" . $xoopsDB->prefix("tad_base") . "` set
         `欄位1` = '{$欄位1值}',
         `欄位2` = '{$欄位2值}',
@@ -130,6 +131,7 @@ class Tad_base
             return;
         }
 
+        $id  = (int) $id;
         $sql = "delete from `" . $xoopsDB->prefix("tad_base") . "`
         where `id` = '{$id}'";
         $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
@@ -144,6 +146,7 @@ class Tad_base
             return;
         }
 
+        $id  = (int) $id;
         $sql = "select * from `" . $xoopsDB->prefix("tad_base") . "`
         where `id` = '{$id}'";
         $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
@@ -167,7 +170,7 @@ class Tad_base
             // $data['HTML文字欄'] = $myts->displayTarea($data['HTML文字欄'], 1, 0, 0, 0, 0);
             // $data['數字欄'] = (int) $data['數字欄'];
 
-            if ($_SESSION['api_mode'] or $auto_key) {
+            if (!empty($_SESSION['api_mode']) or $auto_key) {
                 $data_arr[] = $data;
             } else {
                 $data_arr[$data['id']] = $data;
